@@ -14,18 +14,11 @@ CARD = """\
 """.format('{rank: <2}', '{suit: <2}', '{rank: >2}')
 
 def join_lines(strings):
-    """
-    Stack strings horizontally.
-    This doesn't keep lines aligned unless the preceding lines have the same length.
-    :param strings: Strings to stack
-    :return: String consisting of the horizontally stacked input
-    """
     liness = [string.splitlines() for string in strings]
     return '\n'.join(''.join(lines) for lines in zip(*liness))
 
 def card_graphics(*cards):
 
-    # we will use this to prints the appropriate icons for each card
     name_to_symbol = {
         'Spades':   '♠',
         'Diamonds': '♦',
@@ -35,7 +28,6 @@ def card_graphics(*cards):
     }
 
     def card_to_string(card):
-        # 10 is the only card with a 2-char rank abbreviation
         rank = ""
         if card.rank == 1:
             rank = "A"
@@ -52,7 +44,6 @@ def card_graphics(*cards):
         else:
             rank = str(card.rank)
 
-        # add the individual card on a line by line basis
         return CARD.format(rank=rank, suit=name_to_symbol[card.suit])
 
     return join_lines(map(card_to_string, cards))
