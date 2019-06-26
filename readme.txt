@@ -1,0 +1,7 @@
+A simple command line version of the popular card game - In Between
+by Andrew Chay (kupori)
+
+requires python 3.6 and a console that can read unicode
+
+references:
+https://codereview.stackexchange.com/questions/82103/ascii-fication-of-playing-cards
