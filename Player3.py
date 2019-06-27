@@ -25,14 +25,19 @@ class Player:
     def fold_round(self, money):
         self.fold += 1
         self.score -= money
-    
+
 suits = ("Spades","Hearts","Clubs","Diamonds")
 
 class Cards(object):
 
     def __init__(self, suit, rank):
+        """
+        :param suit: The face of the card, e.g. Spade or Diamond
+        :param rank: The value of the card, e.g 3 or King
+        """
         self.suit = suit
         self.rank = rank
+        # self.points = self.card_values[rank]
 
     def cardName(self):
         specialCards = {11: "Jack", 12: "Queen", 13:"King", 1: "Ace"}
