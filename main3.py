@@ -133,8 +133,9 @@ print("------------------------------------------")
 
 no_player = check_int("Enter Number of Players ---> ")
 pot_size = check_int("Enter Total Pot Amount ---> $")
-House = Player("House", pot_size, 0, 0, 0)
+min_bet_amount = check_int("Enter Minimum Bet Amount ---> $")
 
+House = Player("House", pot_size, 0, 0, 0)
 p_list = [Player("", 0, 0, 0, 0) for i in range(no_player)]
 
 for x in p_list:
@@ -165,9 +166,13 @@ while rounds < t_rounds:
             stats.remove(bet[2].rank)
             choice = input("Bet Higher/Lower or Fold? (h/l/f)---> ")
             while (choice not in valid2):
-                choice = input("Please enter a valid choice (h/l/f)---> ")
+                choice = input("Please Enter A Valid Choice (h/l/f)---> ")
             if choice == "l":
                 bet_amount = check_int("Enter Bet Amount ---> $")
+                while bet_amount < min_bet_amount:
+                    bet_amount = check_int("Bet Amount is too low! ---> $")
+                while bet_amount > House.score:
+                    bet_amount = check_int("Bet Amount is cannot exceed Current Pot! ---> $")
                 time.sleep(1)
                 if(bet[0].rank > bet[2].rank):
                     print(card_graphics(bet[2]))
@@ -195,6 +200,10 @@ while rounds < t_rounds:
                     time.sleep(2)
             elif choice == "h":
                 bet_amount = check_int("Enter Bet Amount ---> $")
+                while bet_amount < min_bet_amount:
+                    bet_amount = check_int("Bet Amount is too low! ---> $")
+                while bet_amount > House.score:
+                    bet_amount = check_int("Bet Amount is cannot exceed Current Pot! ---> $")
                 time.sleep(1)
                 if(bet[0].rank < bet[2].rank):
                     print(card_graphics(bet[2]))
@@ -222,11 +231,9 @@ while rounds < t_rounds:
                     del bet[:]
                     time.sleep(2)
             elif choice == "f":
-                time.sleep(1)
-                fold_amount = pot_size * 0.02
-                House.win_round(fold_amount)
-                player.fold_round(fold_amount)
-                print("You folded, automatically losing $%d.\n" %(fold_amount))
+                House.win_round(min_bet_amount)
+                player.fold_round(min_bet_amount)
+                print("You folded, automatically losing $%d.\n" %(min_bet_amount))
                 rounds += 1
                 del bet[:]
                 time.sleep(2)
@@ -237,9 +244,13 @@ while rounds < t_rounds:
             stats.remove(bet[2].rank)
             choice = input("Will You Bet or Fold? (b/f) ---> ")
             while (choice not in valid1):
-                choice = input("Please enter a valid choice (b/f) ---> ")
+                choice = input("Please enter a Valid Choice (b/f) ---> ")
             if choice == "b":
                 bet_amount = check_int("Enter Bet Amount ---> $")
+                while bet_amount < min_bet_amount:
+                    bet_amount = check_int("Bet Amount is too low! ---> $")
+                while bet_amount > House.score:
+                    bet_amount = check_int("Bet Amount is cannot exceed Current Pot! ---> $")
                 time.sleep(1)
                 if (bet[0].rank < bet[2].rank < bet[1].rank) \
                         or (bet[0].rank > bet[2].rank > bet[1].rank):
@@ -275,14 +286,24 @@ while rounds < t_rounds:
                     del bet[:]
                     time.sleep(2)
             elif choice == "f":
-                fold_amount = pot_size * 0.02
-                House.win_round(fold_amount)
-                player.fold_round(fold_amount)
-                print("You folded, automatically losing $%d.\n" %(fold_amount))
+                House.win_round(min_bet_amount)
+                player.fold_round(min_bet_amount)
+                print("You folded, automatically losing $%d.\n" %(min_bet_amount))
                 rounds += 1
                 del bet[:]
                 time.sleep(2)
-
+            
+            if House.score == 0:
+                print ("The pot has been emptied")
+                choice = input("Would you like to refill the pot? (y/n) ---> ")
+                while choice not in ['y','n']:
+                    choice = input("Please Enter a Valid Choice (y/n) ---> ")
+                if choice == "y":
+                    pot_size = check_int("Enter Total Pot Amount ---> $")
+                    House.score += pot_size
+                else:
+                    rounds = t_rounds
+                
             if rounds == t_rounds:
                 cont = input("Game has ended, Type c to continue, e to end ---> ")
                 if cont == "c":
@@ -291,7 +312,7 @@ while rounds < t_rounds:
                     stats = statistics_deck ()
                     choice = input("Would you like to refill the pot? (y/n) ---> ")
                     while choice not in ['y','n']:
-                        choice = input("Please enter a valid choice (y/n) ---> ")
+                        choice = input("Please Enter a Valid Choice (y/n) ---> ")
                     if choice == "y":
                         pot_size = check_int("Enter Total Pot Amount ---> $")
                         House.score += pot_size
@@ -303,5 +324,6 @@ while rounds < t_rounds:
                     for players in p_list:
                         players.summary()
                     print("------------------------------------------")
-                    print("The Game will close in 3 seconds")
-                    time.sleep(3)
+
+print("The Game will end in 3 seconds")
+time.sleep(3)
