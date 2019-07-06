@@ -6,7 +6,7 @@ Features an odds calculator.
 
 Requires python 3.6 and a console that can read unicode, use bash.
 
-To play, Run main3.py
+To play, Open main Folder, Run Main.py
 
 
 ![Screenshot](SS.png)

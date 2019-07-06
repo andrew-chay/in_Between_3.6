@@ -1,6 +1,6 @@
-from Player3 import Player, Cards
-from card_functions import *
-from stats import *
+from Classes import Player, Cards
+from Card_functions import *
+from Stats import *
 import random, time
 
 suits = ("Spades","Hearts","Clubs","Diamonds")
