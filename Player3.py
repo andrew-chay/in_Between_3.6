@@ -26,8 +26,6 @@ class Player:
         self.fold += 1
         self.score -= money
 
-suits = ("Spades","Hearts","Clubs","Diamonds")
-
 class Cards(object):
 
     def __init__(self, suit, rank):

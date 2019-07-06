@@ -1,10 +1,12 @@
 # in_Between_3.6
 
-A simple command line version of the popular card game - In Between / Acey Deucey
+A simple command line version of the popular card game - In Between / Acey Deucey.
 
-Requires python 3.6 and a console that can read unicode such as bash
+Features an odds calculator.
 
-Run main3.py
+Requires python 3.6 and a console that can read unicode, use bash.
+
+To play, Run main3.py
 
 
 ![Screenshot](SS.png)
